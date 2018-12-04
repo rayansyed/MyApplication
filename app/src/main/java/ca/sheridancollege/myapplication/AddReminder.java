@@ -65,7 +65,6 @@ public class AddReminder extends Activity {
             @Override
             public void onClick(View v) {
                 setAlarm();
-                notification();
             }
         });
 
@@ -119,7 +118,7 @@ public class AddReminder extends Activity {
             // private static final String TAG = "Alarm Example Receiver";
             @Override
             public void onReceive(Context context, Intent intent) {
-                Toast.makeText(context, "Alarm time has been reached", Toast.LENGTH_LONG).show();
+                notification();
 
             }
         };
