@@ -17,6 +17,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import ca.sheridancollege.myapplication.model.Reminder;
+
 public class AddReminder extends Activity {
 
     private static final int notificationId = 1;
@@ -52,15 +54,12 @@ public class AddReminder extends Activity {
         findViewById(R.id.btn_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addReminder();
 
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                intent.putExtra("reminderName",reminderName.getText().toString());
-                setResult(Activity.RESULT_OK, intent);
-                finish();
 
-            }
+
+                }
         });
-
         findViewById(R.id.btn_setAlarm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +69,19 @@ public class AddReminder extends Activity {
 
 
 
+    }
+
+
+    private void addReminder(){
+
+        String description =  reminderName.getText().toString();
+
+        Reminder reminder = new Reminder(description);
+
+        Intent intent = new Intent();
+        intent.putExtra("reminder", reminder);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     public void setAlarm() {
