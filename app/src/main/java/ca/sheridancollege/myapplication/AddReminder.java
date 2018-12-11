@@ -2,6 +2,7 @@ package ca.sheridancollege.myapplication;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
@@ -47,8 +49,8 @@ public class AddReminder extends Activity {
         edtHour = findViewById(R.id.edt_hour);
         edtMinute = findViewById(R.id.edt_minute);
         edtSeconds = findViewById(R.id.edt_seconds);
+        final String description =  reminderName.getText().toString();
 
-        RegisterAlarmBroadcast();
 
 
         findViewById(R.id.btn_finish).setOnClickListener(new View.OnClickListener() {
@@ -63,7 +65,7 @@ public class AddReminder extends Activity {
         findViewById(R.id.btn_setAlarm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAlarm();
+                scheduleNotification(getNotification(description), setAlarm());
             }
         });
 
@@ -84,7 +86,7 @@ public class AddReminder extends Activity {
         finish();
     }
 
-    public void setAlarm() {
+    public int setAlarm() {
         String shr = edtHour.getText().toString();
         String smin = edtMinute.getText().toString();
         String ssec = edtSeconds.getText().toString();
@@ -110,35 +112,31 @@ public class AddReminder extends Activity {
             sec = sec * 1000;
         }
         result = hr+min+sec;
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), result , pendingIntent);
+        return result;
     }
 
-    private void notification(){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Title")
-                .setContentText("content")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+    private void scheduleNotification(Notification notification, int delay) {
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(notificationId, mBuilder.build());
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
-    private void RegisterAlarmBroadcast() {
-
-        mReceiver = new BroadcastReceiver() {
-            // private static final String TAG = "Alarm Example Receiver";
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                notification();
-
-            }
-        };
-
-        registerReceiver(mReceiver, new IntentFilter("sample"));
-        pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("sample"), 0);
-        alarmManager = (AlarmManager)(this.getSystemService(Context.ALARM_SERVICE));
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("Reminder!");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        return builder.build();
     }
+
+
+
 
 
 
