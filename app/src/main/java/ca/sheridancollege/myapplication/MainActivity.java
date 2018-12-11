@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
     RecyclerView mRecyclerView;
 
     private static final int ADD_REMINDER = 1;
+    public static final int NOTIFICATION_DISMISSED = 2;
 
 
     @Override

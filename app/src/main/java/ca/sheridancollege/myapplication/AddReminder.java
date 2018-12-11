@@ -51,14 +51,10 @@ public class AddReminder extends Activity {
         edtSeconds = findViewById(R.id.edt_seconds);
         final String description =  reminderName.getText().toString();
 
-
-
         findViewById(R.id.btn_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addReminder();
-
-
 
                 }
         });
@@ -68,8 +64,6 @@ public class AddReminder extends Activity {
                 scheduleNotification(getNotification(description), setAlarm());
             }
         });
-
-
 
     }
 
@@ -128,9 +122,13 @@ public class AddReminder extends Activity {
     }
 
     private Notification getNotification(String content) {
+        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+        PendingIntent deleteIntent = PendingIntent.getActivity(getApplicationContext(), MainActivity.NOTIFICATION_DISMISSED, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("Reminder!");
         builder.setContentText(content);
+        builder.setDeleteIntent(deleteIntent);
         builder.setSmallIcon(R.drawable.ic_launcher_background);
         return builder.build();
     }
