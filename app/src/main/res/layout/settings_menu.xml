@@ -7,8 +7,15 @@
 
     <Switch
         android:id="@+id/switch_dark_theme"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:text="Dark Theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Switch
+        android:id="@+id/switch_large_font"
+        android:layout_margin="10dp"
+        android:text="Large Font"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

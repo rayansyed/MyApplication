@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import ca.sheridancollege.myapplication.db.ReminderDao;
 import ca.sheridancollege.myapplication.db.ReminderRoomDatabase;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity {
 
     private static final int ADD_REMINDER = 1;
     public static final int NOTIFICATION_DISMISSED = 2;
+    public static final int DARK_THEME = 3;
 
 
     @Override
@@ -77,12 +79,13 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
 
         if(id == R.id.action_settings){
-            Toast.makeText(this, "Settings", Toast.LENGTH_LONG).show();
-            // todo: Create new activity.
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         if(id == R.id.action_about){
-            Toast.makeText(this, "About", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), AboutPageActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -177,6 +180,19 @@ public class MainActivity extends Activity {
         }
     }
 
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_DARK_THEME = "dark_theme";
 
+    // ...
 
+    private void toggleTheme(boolean darkTheme) {
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putBoolean(PREF_DARK_THEME, darkTheme);
+        editor.apply();
+
+        Intent intent = getIntent();
+        finish();
+
+        startActivity(intent);
+    }
 }

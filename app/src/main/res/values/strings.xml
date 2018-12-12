@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="about_text">
+        \nSometimes life can get really hectic and we start forgetting things that we should remember such as assignments for school, groceries, walking the dog,
+        and even picking up kids from school.
+        \n\nTo help with this major problem the team here at I Forgot are working hard to bring an app to solve this problem once and for all.
+        \n\nDon’t Forget! Is the app that will keep track of every important event in your life and will make sure that you will never be late for anything ever again!
+</string>
 </resources>
