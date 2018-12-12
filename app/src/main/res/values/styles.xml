@@ -4,4 +4,8 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light">
     </style>
 
+    <style name="DarkTheme" parent="android:Theme.Material.Wallpaper">
+        <item name="android:background"> @color/darkColorPrimary</item>
+    </style>
+
 </resources>

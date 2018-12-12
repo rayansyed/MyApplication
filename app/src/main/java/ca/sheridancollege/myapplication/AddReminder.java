@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import ca.sheridancollege.myapplication.model.Reminder;
 
-public class AddReminder extends Activity {
+public class AddReminder extends MainActivity {
 
     private static final int notificationId = 1;
     private static final String CHANNEL_ID = "123" ;

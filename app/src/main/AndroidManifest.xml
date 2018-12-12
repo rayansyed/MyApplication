@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddReminder"></activity>
-        <receiver android:name=".NotificationPublisher" />
+        <activity android:name=".AddReminder" android:parentActivityName=".MainActivity"></activity>
+        <receiver android:name=".NotificationPublisher" android:parentActivityName=".MainActivity"/>
 
-        <activity android:name=".SettingsActivity" android:parentActivityName=".MainActivity">
+        <activity android:name=".SettingsActivity" android:parentActivityName=".MainActivity"
+            >
 
         </activity>
 
