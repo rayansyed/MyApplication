@@ -28,21 +28,21 @@
         android:orientation="horizontal">
 
         <EditText
-
+            android:inputType="number"
             android:id="@+id/edt_hour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Enter Hour"/>
 
         <EditText
-
+            android:inputType="number"
             android:id="@+id/edt_minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Enter Minute"/>
 
         <EditText
-
+            android:inputType="number"
             android:id="@+id/edt_seconds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
