@@ -5,7 +5,8 @@
     <color name="colorAccent">#D81B60</color>
 
     <!-- app/src/main/res/values/colors.xml -->
-    <color name="darkColorPrimary">#1e2756</color>
-    <color name="darkColorPrimaryDark">#141831</color>
+    <color name="darkColorPrimary">#404040</color>
+    <color name="darkColorPrimaryDark">#9e9e9e</color>
     <color name="darkColorAccent">#2aac4b</color>
+    <color name="foreground_material_light">#ffffff</color>
 </resources>
