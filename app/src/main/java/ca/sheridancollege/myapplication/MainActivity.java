@@ -15,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,16 +33,24 @@ public class MainActivity extends Activity {
 
 
     RecyclerView mRecyclerView;
-
+    Switch sw;
     private static final int ADD_REMINDER = 1;
     public static final int NOTIFICATION_DISMISSED = 2;
     public static final int DARK_THEME = 3;
+
+    public static boolean isDark = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.DarkTheme);
+        sw = findViewById(R.id.switch_dark_theme);
+        if (isDark == true){
+            setTheme(R.style.DarkTheme);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
+
         setContentView(R.layout.activity_main);
 
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -81,12 +91,12 @@ public class MainActivity extends Activity {
 
         if(id == R.id.action_settings){
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, DARK_THEME);
             return true;
         }
         if(id == R.id.action_about){
             Intent intent = new Intent(getApplicationContext(), AboutPageActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, DARK_THEME);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -108,7 +118,6 @@ public class MainActivity extends Activity {
             InsertTask myTask = new InsertTask();
 
             myTask.execute(reminder);
-
         }
 
     }
