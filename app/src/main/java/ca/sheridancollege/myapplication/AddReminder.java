@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +39,7 @@ public class AddReminder extends Activity {
     int min = 0;
     int sec = 0;
     int result = 1;
+    String desc;
 
 
     @Override
@@ -49,21 +51,17 @@ public class AddReminder extends Activity {
         edtHour = findViewById(R.id.edt_hour);
         edtMinute = findViewById(R.id.edt_minute);
         edtSeconds = findViewById(R.id.edt_seconds);
-        final String description =  reminderName.getText().toString();
+        desc =  reminderName.getText().toString();
 
         findViewById(R.id.btn_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addReminder();
+                scheduleNotification(getNotification(desc), setAlarm());
 
-                }
-        });
-        findViewById(R.id.btn_setAlarm).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scheduleNotification(getNotification(description), setAlarm());
             }
         });
+
 
     }
 
@@ -123,12 +121,19 @@ public class AddReminder extends Activity {
 
     private Notification getNotification(String content) {
         Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-        PendingIntent deleteIntent = PendingIntent.getActivity(getApplicationContext(), MainActivity.NOTIFICATION_DISMISSED, intent2, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
+
+        PendingIntent goBack =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("Reminder!");
+        builder.setContentIntent(goBack);
         builder.setContentText(content);
-        builder.setDeleteIntent(deleteIntent);
+        builder.setAutoCancel(true);
         builder.setSmallIcon(R.drawable.ic_launcher_background);
         return builder.build();
     }

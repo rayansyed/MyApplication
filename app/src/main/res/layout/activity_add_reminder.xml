@@ -5,16 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddReminder"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="15dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reminder Information" />
+        android:text="Reminder Info"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:layout_margin="10dp"/>
 
     <EditText
         android:id="@+id/edt_name"
-        android:hint="Enter Name For Your Reminder"
+        android:layout_margin="15dp"
+        android:hint="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -25,43 +30,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".AddReminder"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="15dp">
 
         <EditText
             android:inputType="number"
             android:id="@+id/edt_hour"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="Enter Hour"/>
+            android:hint="Hours"
+            android:layout_marginLeft="15dp"/>
 
         <EditText
             android:inputType="number"
             android:id="@+id/edt_minute"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="Enter Minute"/>
+            android:hint="Minutes"/>
 
         <EditText
             android:inputType="number"
             android:id="@+id/edt_seconds"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:hint="Enter Seconds"/>
+            android:hint="Seconds"
+            android:layout_marginRight="15dp"/>
 
 
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/btn_setAlarm"
-        android:text="Set Alarm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+
 
     <Button
         android:id="@+id/btn_finish"
-        android:text="Finish"
+        android:text="Add Reminder"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
