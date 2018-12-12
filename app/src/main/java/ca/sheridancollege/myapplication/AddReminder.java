@@ -31,15 +31,11 @@ public class AddReminder extends MainActivity {
     EditText edtMinute;
     EditText edtSeconds;
 
-    AlarmManager alarmManager;
-    PendingIntent pendingIntent;
-    BroadcastReceiver mReceiver;
-
     int hr = 0;
     int min = 0;
     int sec = 0;
     int result = 1;
-    String desc;
+
 
 
     @Override
@@ -51,13 +47,12 @@ public class AddReminder extends MainActivity {
         edtHour = findViewById(R.id.edt_hour);
         edtMinute = findViewById(R.id.edt_minute);
         edtSeconds = findViewById(R.id.edt_seconds);
-        desc =  reminderName.getText().toString();
 
         findViewById(R.id.btn_finish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addReminder();
-                scheduleNotification(getNotification(desc), setAlarm());
+                scheduleNotification(getNotification(), setAlarm());
 
             }
         });
@@ -119,8 +114,8 @@ public class AddReminder extends MainActivity {
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 
-    private Notification getNotification(String content) {
-        Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+    private Notification getNotification() {
+        String description =  reminderName.getText().toString();
 
         Intent resultIntent = new Intent(this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
@@ -132,9 +127,9 @@ public class AddReminder extends MainActivity {
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("Reminder!");
         builder.setContentIntent(goBack);
-        builder.setContentText(content);
+        builder.setContentText(description);
         builder.setAutoCancel(true);
-        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        builder.setSmallIcon(R.drawable.baseline_access_alarm_24);
         return builder.build();
     }
 
